@@ -16,6 +16,8 @@ const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const { webhookCheckout } = require('./controllers/bookingController');
 // ::::::::::::::::::::::::IMPORTS END:::::::::::::::::::::::::::::
 
 const app = express();
@@ -62,6 +64,13 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
+// Webhook STRIPE
+app.post(
+  '/webhook-checkout',
+  bodyParser.raw({ type: 'aplication/json' }),
+  webhookCheckout
+);
+
 // Body parser / Body limiter
 app.use(
   express.json({
@@ -71,6 +80,8 @@ app.use(
 
 // Use Cookie Parser
 app.use(cookieParser());
+
+// URL Encoder
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 //Use compression
