@@ -15,6 +15,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 // ::::::::::::::::::::::::IMPORTS END:::::::::::::::::::::::::::::
 
 const app = express();
@@ -26,6 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 
 // GLOBAL MIDDLEWARES
+
+//implement CORS
+app.use(cors());
+
+app.options('*', cors());
 
 // Secure http headers
 app.use(
@@ -68,7 +74,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 //Use compression
-// app.use(compression());
+app.use(compression());
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
