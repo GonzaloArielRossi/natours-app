@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGO_DB_CNN).then(() => {
   console.log('DB Connected Succesfully ✅');
 });
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 const server = app.listen(port, () => {
   console.clear();
