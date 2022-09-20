@@ -14,6 +14,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 // ::::::::::::::::::::::::IMPORTS END:::::::::::::::::::::::::::::
 
 const app = express();
@@ -64,6 +65,9 @@ app.use(
 // Use Cookie Parser
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
+//Use compression
+app.use(compression());
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
