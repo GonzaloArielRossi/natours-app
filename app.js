@@ -18,6 +18,7 @@ const compression = require('compression');
 // ::::::::::::::::::::::::IMPORTS END:::::::::::::::::::::::::::::
 
 const app = express();
+app.enable('trust proxy');
 app.set('view engine', 'pug');
 
 // Serve static and view files
