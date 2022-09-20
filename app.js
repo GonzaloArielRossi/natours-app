@@ -67,7 +67,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 //Use compression
-app.use(compression());
+// app.use(compression());
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
