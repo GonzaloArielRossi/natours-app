@@ -1,5 +1,6 @@
 const Stripe = require('stripe');
 const Tour = require('../models/tour');
+const User = require('../models/user');
 const Booking = require('../models/booking');
 const catchAsync = require('../helpers/catchAsync');
 const factory = require('./handlerFactory');
@@ -50,10 +51,13 @@ const createBookingCheckout = async session => {
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
   const price = session.amount_total / 100;
+  console.log(tour, user, price);
   await Booking.create({ tour, user, price });
 };
 
 exports.webhookCheckout = (req, res, next) => {
+  console.log(':::::::::::::::::::::::::::::::');
+  console.log(req.headers['stripe-signature']);
   const signature = req.headers['stripe-signature'];
 
   let event;

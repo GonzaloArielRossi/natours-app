@@ -17,7 +17,6 @@ const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
 const { webhookCheckout } = require('./controllers/bookingController');
 // ::::::::::::::::::::::::IMPORTS END:::::::::::::::::::::::::::::
 
@@ -68,8 +67,7 @@ app.use('/api', limiter);
 // Webhook STRIPE
 app.post(
   '/webhook-checkout',
-  () => console.log(':::::::::::::HERE NEGRO:::::::::::::::::::::'),
-  bodyParser.raw({ type: 'application/json' }),
+  // bodyParser.raw({ type: 'application/json' }),
   webhookCheckout
 );
 
