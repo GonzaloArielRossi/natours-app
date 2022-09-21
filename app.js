@@ -65,11 +65,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Webhook STRIPE
-app.post(
-  '/webhook-checkout',
-  // bodyParser.raw({ type: 'application/json' }),
-  webhookCheckout
-);
+app.post('/webhook-checkout', bodyParser.raw({ type: '*/*' }), webhookCheckout);
 
 // Body parser / Body limiter
 app.use(
