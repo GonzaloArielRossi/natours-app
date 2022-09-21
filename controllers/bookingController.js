@@ -50,11 +50,9 @@ const createBookingCheckout = async (session, req) => {
   const user = (await User.findOne({ email: session.customer_email })).id;
   const price = session.amount_total / 100;
   console.log(tour, user, price);
-  const booking = await Booking.create({ tour, user, price });
+  await Booking.create({ tour, user, price });
   const url = `${req.protocol}://${req.get('host')}/my-tours`;
-  if (booking) {
-    await new Email(user, url).sendBookingConfirmation();
-  }
+  await new Email(user, url).sendBookingConfirmation();
 };
 
 exports.webhookCheckout = (req, res, next) => {

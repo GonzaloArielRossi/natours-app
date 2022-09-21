@@ -65,9 +65,6 @@ module.exports = class Email {
   }
 
   async sendBookingConfirmation() {
-    await this.send(
-      'Booking Confirmed!',
-      'Your reservation has been confirmed'
-    );
+    await this.send('bookingConfirmed', 'Your reservation has been confirmed');
   }
 };
