@@ -4,9 +4,11 @@ const {
   getTour,
   getLoginForm,
   getAccount,
-  getMyTours
+  getMyTours,
+  alerts
 } = require('../controllers/viewsController');
 const router = express.Router();
+router.use(alerts);
 const { isLoggedIn, protect } = require('../controllers/authController');
 
 //ROUTES
