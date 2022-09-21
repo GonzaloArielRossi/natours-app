@@ -52,6 +52,7 @@ const createBookingCheckout = async (session, req) => {
   console.log(tour, user, price);
   await Booking.create({ tour, user, price });
   const url = `${req.protocol}://${req.get('host')}/my-tours`;
+  console.log(user, url);
   await new Email(user, url).sendBookingConfirmation();
 };
 
