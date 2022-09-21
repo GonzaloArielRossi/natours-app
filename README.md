@@ -4,7 +4,7 @@
 
 <hr>
 
-This project is a fully featured REST API created with Node, Express, MongoDB and Mongoose. It also has a front-end developed with PUG.
+This project consists of a fully featured REST API created with Node, Express, MongoDB and Mongoose. It also has a front-end developed with PUG.
 
 <hr>
 
