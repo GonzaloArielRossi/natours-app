@@ -42,12 +42,10 @@ I created this app as part of the course: "Node.js, Express, MongoDB and More: T
 ## API Documentation
 
 The API is fully documented with POSTMAN.<br>
-You can check out the documentation with response examples
-<a href="https://documenter.getpostman.com/view/21502975/2s7Z7YKaTi#26961417-6ffe-4ead-8728-c1c83c50fdb5" target="_blank">here</a>
-<br>
+You can check out the documentation with response examples [here](https://documenter.getpostman.com/view/21502975/2s7Z7YKaTi#26961417-6ffe-4ead-8728-c1c83c50fdb5).<br>
 
 <hr>
 
 ## Live Version
 
-App deployed with Heroku: <a href="(https://natours-rossi.herokuapp.com/" target="_blank">Natours APP</a>
+App deployed with Heroku: https://natours-rossi.herokuapp.com/
