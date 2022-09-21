@@ -50,10 +50,8 @@ const createBookingCheckout = async (session, req) => {
   const userId = (await User.findOne({ email: session.customer_email })).id;
   const user = await User.findOne({ email: session.customer_email });
   const price = session.amount_total / 100;
-  console.log(userId);
-  await Booking.create({ tour, userId, price });
+  await Booking.create({ tour, user: userId, price });
   const url = `${req.protocol}://${req.get('host')}/my-tours`;
-  console.log(user, url);
   await new Email(user, url).sendBookingConfirmation();
 };
 
