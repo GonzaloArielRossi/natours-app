@@ -1,0 +1,12 @@
+extends base
+include _reviewCard
+
+block content
+    main.main
+        .reviews
+            if reviews.length === 0
+                .error
+                .error__title
+                  h2.heading-secondary.heading-secondary--error No reviews yet
+            each review in reviews
+                +reviewCard(review)

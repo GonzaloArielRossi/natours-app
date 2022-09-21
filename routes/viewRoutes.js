@@ -5,7 +5,9 @@ const {
   getLoginForm,
   getAccount,
   getMyTours,
-  alerts
+  alerts,
+  getSignupForm,
+  getMyReviews
 } = require('../controllers/viewsController');
 const router = express.Router();
 router.use(alerts);
@@ -16,6 +18,8 @@ router.get('/', isLoggedIn, getOverview);
 router.get('/me', protect, getAccount);
 router.get('/tour/:slug', isLoggedIn, getTour);
 router.get('/login', isLoggedIn, getLoginForm);
+router.get('/signup', getSignupForm);
 router.get('/my-tours', protect, getMyTours);
+router.get('/my-reviews', protect, getMyReviews);
 
 module.exports = router;
