@@ -2,6 +2,11 @@ extends base
 
 block content
     main.main
+        if tours.length === 0
+          .error
+            .error__title
+              h2.heading-secondary.heading-secondary--error No bookings yet
+            a.btn.btn--green.span-all-rows(href=`/`) Book tour now!
         .card-container
             each tour in tours
                 .card

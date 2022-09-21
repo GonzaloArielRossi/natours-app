@@ -1,10 +1,10 @@
-const catchAsync = require('../helpers/catchAsync');
-const Tour = require('../models/tour');
-const factory = require('./handlerFactory');
 const AppError = require('../helpers/appError');
+const catchAsync = require('../helpers/catchAsync');
+const factory = require('./handlerFactory');
 const multer = require('multer');
-const sharp = require('sharp');
 const { promises } = require('nodemailer/lib/xoauth2');
+const sharp = require('sharp');
+const Tour = require('../models/tour');
 
 const multerStorage = multer.memoryStorage();
 

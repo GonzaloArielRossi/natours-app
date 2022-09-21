@@ -1,11 +1,10 @@
+const AppError = require('../helpers/appError');
+const catchAsync = require('../helpers/catchAsync');
+const crypto = require('crypto');
+const Email = require('../helpers/email');
+const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const User = require('../models/user');
-const catchAsync = require('../helpers/catchAsync');
-const jwt = require('jsonwebtoken');
-const appError = require('../helpers/appError');
-const AppError = require('../helpers/appError');
-const Email = require('../helpers/email');
-const crypto = require('crypto');
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -15,16 +14,18 @@ const signToken = id => {
 
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
-  const cookieOptions = {
+
+  res.cookie('jwt', token, {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: req.secure || req.headers('x-forwarded-proto') === 'https'
-  };
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
+  });
 
-  res.cookie('jwt', token, cookieOptions);
+  // Remove password from output
   user.pwd = undefined;
+
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -53,7 +54,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // Fields missing in req
   if (!email || !pwd) {
-    return next(new appError(' Please provide email and password', 400));
+    return next(new AppError(' Please provide email and password', 400));
   }
 
   // User exists?
@@ -61,7 +62,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   //Correct pwd?
   if (!user || !(await user.correctPwd(pwd, user.pwd))) {
-    return next(new appError('Incorrect email or password', 401));
+    return next(new AppError('Incorrect email or password', 401));
   }
   //Login Succesfull
   createSendToken(user, 200, req, res);

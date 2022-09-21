@@ -17,7 +17,7 @@ router.use(protect);
 router
   .route('/')
   .get(getAllReviews)
-  .post(restrictTo('user'), setTourUserIds, createReview);
+  .post(setTourUserIds, createReview);
 
 router
   .route('/:id')

@@ -1,7 +1,7 @@
 {
   "name": "natours",
   "version": "1.0.0",
-  "description": "Learning node, express and mongoDB",
+  "description": "Natours App",
   "main": "app.js",
   "targets": {
     "main": false
@@ -14,7 +14,7 @@
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js --public-url /js",
     "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js --public-url /js"
   },
-  "author": "Jonas Schmedtmann",
+  "author": "Gonzalo Ariel Rossi",
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",

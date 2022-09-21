@@ -1,9 +1,10 @@
+const Booking = require('../models/booking');
+const catchAsync = require('../helpers/catchAsync');
+const Email = require('../helpers/email');
+const factory = require('./handlerFactory');
 const Stripe = require('stripe');
 const Tour = require('../models/tour');
 const User = require('../models/user');
-const Booking = require('../models/booking');
-const catchAsync = require('../helpers/catchAsync');
-const factory = require('./handlerFactory');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get the currently booked tour
@@ -44,44 +45,35 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   });
 });
 
-const createBookingCheckout = async session => {
-  console.log(
-    '::::::::::::::::::::createBookingCheckout::::::::::::::::::::::'
-  );
+const createBookingCheckout = async (session, req) => {
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
   const price = session.amount_total / 100;
   console.log(tour, user, price);
-  await Booking.create({ tour, user, price });
+  const booking = await Booking.create({ tour, user, price });
+  const url = `${req.protocol}://${req.get('host')}/my-tours`;
+  if (booking) {
+    await new Email(user, url).sendBookingConfirmation();
+  }
 };
 
 exports.webhookCheckout = (req, res, next) => {
-  console.log(':::::::::::::::::::::::::::::::');
-  console.log(req.headers['stripe-signature']);
   const signature = req.headers['stripe-signature'];
 
   let event;
-  console.log(':::::::::::::::signature:::::::::::::::::::::::::: ');
-  console.log(signature);
   try {
-    console.log(':::::::::::::::TRY:::::::::::::::::::::::::: ');
     const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
     event = stripe.webhooks.constructEvent(
       req.body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET
     );
-    console.log(':::::::::::::::EVENT:::::::::::::::::::::::::: ');
-    console.log(event);
   } catch (err) {
     return res.status(400).send(`Webhook error: ${err.message}`);
   }
 
   if (event.type === 'checkout.session.completed') {
-    console.log(
-      '::::::::::::::::::::::::::checkout.session.completed::::::::::::::::::::::::::::::::::::::::::::'
-    );
-    createBookingCheckout(event.data.object);
+    createBookingCheckout(event.data.object, req);
   }
 
   res.status(200).json({ received: true });

@@ -1,20 +1,9 @@
 const AppError = require('../helpers/appError');
 const catchAsync = require('../helpers/catchAsync');
-const User = require('../models/user');
 const factory = require('./handlerFactory');
 const multer = require('multer');
 const sharp = require('sharp');
-
-// const multerStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, 'public/img/users');
-//   },
-//   filename: (req, file, cb) => {
-//     //user-id-timestamp.ext
-//     const ext = file.mimetype.split('/')[1];
-//     cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
-//   }
-// });
+const User = require('../models/user');
 
 const multerStorage = multer.memoryStorage();
 

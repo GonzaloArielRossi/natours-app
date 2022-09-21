@@ -33,7 +33,7 @@ const userSchema = new Schema({
     required: [true, 'Please confirm your password'],
     minlength: 8,
     validate: {
-      // this only works on create and save! Not in findByIdAndUpdate
+      // this only works on create and save! Not in findByIdAndUpdate()
       validator: function(el) {
         return el === this.pwd;
       },

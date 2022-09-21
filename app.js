@@ -1,27 +1,34 @@
-const path = require('path');
-const express = require('express');
-const morgan = require('morgan');
+// Views
+const bookingRouter = require('./routes/bookingRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
-const reviewRouter = require('./routes/reviewRoutes');
-const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
+// Controllers and helpers
 const AppError = require('./helpers/appError');
 const globalErrorHandler = require('./helpers/globalErrorHandler');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss-clean');
-const hpp = require('hpp');
-const cookieParser = require('cookie-parser');
-const compression = require('compression');
-const cors = require('cors');
-const bodyParser = require('body-parser');
 const { webhookCheckout } = require('./controllers/bookingController');
+// Utils
+const bodyParser = require('body-parser');
+const compression = require('compression');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const express = require('express');
+const helmet = require('helmet');
+const hpp = require('hpp');
+const mongoSanitize = require('express-mongo-sanitize');
+const morgan = require('morgan');
+const path = require('path');
+const rateLimit = require('express-rate-limit');
+const xss = require('xss-clean');
 // ::::::::::::::::::::::::IMPORTS END:::::::::::::::::::::::::::::
 
 const app = express();
+
+// Enable Proxy
 app.enable('trust proxy');
+
+//Pug Setup
 app.set('view engine', 'pug');
 
 // Serve static and view files
@@ -32,7 +39,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 //implement CORS
 app.use(cors());
-
 app.options('*', cors());
 
 // Secure http headers
@@ -74,7 +80,7 @@ app.use(
   })
 );
 
-// Use Cookie Parser
+// Cookie Parser
 app.use(cookieParser());
 
 // URL Encoder

@@ -9,7 +9,6 @@ const tourSchema = new Schema(
       trim: true,
       maxlength: [40, 'A tour name must have less or equal than 40 characters'],
       minlength: [10, 'A tour name must have at least 10 characters']
-      // validate: [validator.isAlpha, 'Tour name must only conain characters']
     },
     duration: {
       type: Number,
