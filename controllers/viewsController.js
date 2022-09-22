@@ -87,8 +87,7 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
 });
 
 exports.getMyReviews = catchAsync(async (req, res, next) => {
-  const reviews = await Review.find({ user: req.user.id });
-  console.log(reviews);
+  const reviews = await Review.find({ user: req.user.id }).populate('tour');
   res.status(200).render('myReviews', {
     title: 'My Reviews',
     reviews

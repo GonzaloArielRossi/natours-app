@@ -31,7 +31,6 @@ if (createReviewForm) {
     const review = document.getElementById('review').value;
     const rating = document.getElementById('rating').value;
     const tour = document.getElementById('tour').value;
-    console.log(review, rating, tour);
     createReview(tour, review, rating);
   });
 }

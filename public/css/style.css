@@ -608,6 +608,15 @@ body {
   -ms-scroll-snap-type: x mandatory;
   scroll-snap-type: x mandatory;
 }
+
+.reviews__users {
+  padding: 5rem 0;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-column-gap: 6rem;
+  grid-row-gap: 6rem;
+  grid-auto-flow: row;
+}
 .reviews__card {
   width: 30rem;
   padding: 4rem;
@@ -627,6 +636,11 @@ body {
   -ms-flex-align: center;
   align-items: center;
 }
+
+#users__review {
+  width: 35rem;
+}
+
 .reviews:before,
 .reviews:after {
   content: '';
@@ -650,6 +664,14 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.reviews__tour {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  color: #28b487;
 }
 .reviews__text {
   font-size: 1.5rem;

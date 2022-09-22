@@ -3,7 +3,6 @@ import { showAlert } from './alerts';
 
 export const createReview = async (tour, review, rating) => {
   const reviewBtn = document.getElementById('reviewBtn');
-  console.log(tour);
   try {
     const res = await axios({
       method: 'POST',
@@ -16,7 +15,7 @@ export const createReview = async (tour, review, rating) => {
     if ((res.data.status = 'success')) {
       showAlert('success', 'Review sent!');
       window.setTimeout(() => {
-        location.assign('/me');
+        location.assign('/my-reviews');
       }, 1500);
     }
   } catch (err) {
