@@ -7,7 +7,8 @@ const {
   getMyTours,
   alerts,
   getSignupForm,
-  getMyReviews
+  getMyReviews,
+  createReview
 } = require('../controllers/viewsController');
 const router = express.Router();
 router.use(alerts);
@@ -21,5 +22,6 @@ router.get('/login', isLoggedIn, getLoginForm);
 router.get('/signup', getSignupForm);
 router.get('/my-tours', protect, getMyTours);
 router.get('/my-reviews', protect, getMyReviews);
+router.get('/:id/create-review', protect, createReview);
 
 module.exports = router;

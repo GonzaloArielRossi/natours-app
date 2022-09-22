@@ -81,6 +81,7 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
 
   res.status(200).render('overview', {
     title: 'My Tours',
+    review: true,
     tours
   });
 });
@@ -91,5 +92,13 @@ exports.getMyReviews = catchAsync(async (req, res, next) => {
   res.status(200).render('myReviews', {
     title: 'My Reviews',
     reviews
+  });
+});
+
+exports.createReview = catchAsync(async (req, res, next) => {
+  const tour = await Tour.findById(req.params.id);
+  res.status(200).render('createReview', {
+    title: 'Create Review',
+    tour
   });
 });

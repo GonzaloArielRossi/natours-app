@@ -1,0 +1,54 @@
+extends base
+
+block content
+    main.main
+        .reviewCardContainer
+            .card
+                .card__header
+                    .card__picture
+                        .card__picture-overlay &nbsp;
+                        img.card__picture-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
+                    h3.heading-tertirary
+                        span=tour.name
+                .card__details
+                    h4.card__sub-heading=`${tour.difficulty} ${tour.duration}-day tour`
+                    p.card__text= tour.summary
+                    .card__data
+                        svg.card__icon
+                            use(xlink:href='/img/icons.svg#icon-map-pin')
+                        span=tour.startLocation.description
+                    .card__data
+                        svg.card__icon
+                            use(xlink:href='/img/icons.svg#icon-calendar')
+                        - const date = tour.startDates.length >0? tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'}) : ''
+                        span= date
+                    .card__data
+                        svg.card__icon
+                            use(xlink:href='/img/icons.svg#icon-flag')
+                        |
+                        span=`${tour.locations.length} stops`
+                    .card__data
+                        svg.card__icon
+                            use(xlink:href='/img/icons.svg#icon-user')
+                        span= `${tour.maxGroupSize} people`
+                .card__footer
+                    p
+                        span.card__footer-value=`$${tour.price}`
+                        span.card__footer-text  per person
+                    p.card__ratings
+                        span.card__footer-value= tour.ratingsAverage
+                        span.card__footer-text= ` rating (${tour.ratingsQuantity})`
+                    - const btnText = review ? 'Review' : 'Details'
+                    - const link = review ? `/${tour.id}/create-review` : `/tour/${tour.slug}`
+                        a.btn.btn--green.btn--small(href=link)= btnText
+            .card__header
+                form.form.form--review
+                    .form__group
+                        label.form__label(for='review') Comment
+                        input#review.form__input(type='textarea', placeholder='review', required, minlength = "10" , maxlength = "60")
+                    .form__group.ma-bt-md
+                        label.form__label(for='rating') Rating
+                        input#rating.form__input(type='number', placeholder='4.5', required, step="0.1", min="1", max="5")
+                        input#tour(type= "hidden", value=`${tour.id}`)
+                    .form__group
+                        button.btn.btn--green#reviewBtn Leave Review

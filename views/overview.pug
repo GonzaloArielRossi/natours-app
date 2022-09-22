@@ -49,4 +49,7 @@ block content
                       span.card__footer-value= tour.ratingsAverage
 
                       span.card__footer-text= ` rating (${tour.ratingsQuantity})`
-                    a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details
+                    - const btnText = review ? 'Review' : 'Details'
+                    - const link = review ? `/${tour.id}/create-review` : `/tour/${tour.slug}`
+                      a.btn.btn--green.btn--small(href=link)= btnText
+

@@ -1,5 +1,6 @@
 import { displayMap } from './mapbox';
 import { login, logout, signup } from './login';
+import { createReview } from './createReview';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
@@ -8,11 +9,13 @@ import { showAlert } from './alerts';
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const signupForm = document.querySelector('.form--signup');
+const createReviewForm = document.querySelector('.form--review');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const signupBtn = document.getElementById('signupBtn');
+const reviewBtn = document.getElementById('reviewBtn');
 
 // DELEGATION
 if (mapBox) {
@@ -20,6 +23,18 @@ if (mapBox) {
   displayMap(locations);
 }
 
+if (createReviewForm) {
+  createReviewForm.addEventListener('submit', e => {
+    reviewBtn.disabled = true;
+    reviewBtn.style.backgroundColor = 'grey';
+    e.preventDefault();
+    const review = document.getElementById('review').value;
+    const rating = document.getElementById('rating').value;
+    const tour = document.getElementById('tour').value;
+    console.log(review, rating, tour);
+    createReview(tour, review, rating);
+  });
+}
 if (loginForm)
   loginForm.addEventListener('submit', e => {
     e.preventDefault();
